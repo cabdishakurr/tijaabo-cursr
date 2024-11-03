@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add low stock filter -->
+    <record id="product_template_search_low_stock" model="ir.ui.view">
+        <field name="name">product.template.search.low.stock</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="filter_to_sell" position="after">
+                <filter string="Low Stock" name="low_stock" domain="[('low_stock', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <!-- Add low stock indicator in tree view -->
+    <record id="product_template_tree_low_stock" model="ir.ui.view">
+        <field name="name">product.template.tree.low.stock</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="after">
+                <field name="low_stock" invisible="1"/>
+                <widget name="web_ribbon" title="Low Stock" bg_color="bg-danger" attrs="{'invisible': [('low_stock', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo> 
